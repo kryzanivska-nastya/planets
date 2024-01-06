@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js'></script>
+  <meta charset = 'utf-8'>
+  <title>Option</title>
+  <link rel = 'stylesheet' href = 'planets.css'>
+</head> 
+
+<div id = 'planets' class = 'planets'><h1>Planets</h1></div>
+<div id = 'planet' class = 'planet'> 
+
+  <div id = 'earth' class = 'earth' ></div>
+  
+    <div id = 'moon-orbit' class = 'moon-orbit'>
+  <div id = 'moon' class = 'moon'></div></div>
+ 
+</div>
+</div>
+
+
+<script>
+
+var isClicked = false;
+    var interval
+    $('#earth').on('click', function () {
+        if(interval) {
+            clearInterval(interval)
+        }
+        interval = setInterval(function(){ rotate(isClicked), 30});
+        isClicked = !isClicked
+    });
+
+    function rotate(toggle) {
+        let moon = document.getElementById('moon-orbit')
+        let deg = Number(moon.getAttribute('moon'))
+
+        if (!deg) {
+            deg = 0
+        }
+
+        if (toggle) {
+            deg += 1
+        } else {
+            deg -= 1
+        }
+        moon.setAttribute('moon', deg)
+        moon.style.transform = `rotateZ(${deg}deg)`
+      }
+
+
+      jQuery(document).ready(function($) {
+    var star = '<span class = star>•</span>';
+    var numStars = 100;
+    for (var x = 1; x <= numStars; x++) {
+       
+      var rand = Math.random()*10;
+      if(rand <= 0.5){
+				  star.fillStyle = 'rgba(255, 255, 255, 1)';
+				  star.shadowColor = 'rgba(255, 255, 255, 0.5)';
+				  star.shadowBlur = 3;
+			}
+			else if(rand > 0.75){
+				  star.fillStyle = 'rgba(255, 254, 196, 1)';
+				  star.shadowColor = 'rgba(255, 254, 196, 0.5)';
+				  star.shadowBlur = 4; 
+			}
+			else{
+				  star.fillStyle = 'rgba(192, 247, 255, 1)';
+				  star.shadowColor = 'rgba(192, 247, 255, 0.5)';
+				  star.shadowBlur = 7;
+			
+	}
+        $(star)
+            .css('animation-delay', rand + 's')
+            .appendTo('body');
+    }
+  
+    var ww = $(window).width();
+    var wh = $(window).height();
+    $('.star').each(function(i) {
+        var posx = Math.round(Math.random() * ww) - 20;
+        var posy = Math.round(Math.random() * wh) - 20;
+        $(this)
+            .css('top', posy + 'px')
+            .css('left', posx + 'px');
+    });
+});
+
+
+   </script>
+ </body>
+ </html>
